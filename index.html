@@ -86,6 +86,7 @@
 		<br>
 		<div class="add">
 				<p>Subject <input type="text" id="subject"></p>
+				<p>Change<input type="radio" id="change_class_yes">yes</p>
 				<p>Start time <input type="time" id="start_time"></p>
 				<p>End time <input type="time" id="end_time"></p>
 				<button onclick="add_ifm()">Save</button>
@@ -97,7 +98,7 @@
         </footer>
    		<script>
 			// show subject
-			let n=0
+			let n=0;
 				
 			let subject = []; // Array to store subjects
         	let start_time = []; // Array to store start times
@@ -107,15 +108,21 @@
 				subject[n]= document.getElementById("subject").value;
 				start_time[n]= document.getElementById("start_time").value;
 				end_time[n]= document.getElementById("end_time").value;
+				change_class_yes = document.getElementById("change_class_yes").checked;
+
+				if(change_class_yes) change_class = '[換]';
+				else change_class = '';
 					
 				// clear the input box
 				document.getElementById("subject").value= '';
 				document.getElementById("start_time").value= '';
 				document.getElementById("end_time").value= '';
+				
+				document.getElementById("change_class_yes").checked = false;
 					
 				// Update schedule
             	const scheduleElement = document.getElementById("schedule");
-        		scheduleElement.innerHTML += subject[n] + " " + start_time[n] + " ~ " + end_time[n] + "<br>";
+        		scheduleElement.innerHTML += subject[n] + " " + start_time[n] + " ~ " + end_time[n] + " " + change_class + "<br>";
 				n++;
 			}
 				
