@@ -85,15 +85,18 @@
 		<br>
 		<br>
 		<div class="add">
-				<p>Subject <input type="text" id="subject"></p>
-				<p>Change<input type="radio" id="change_class_yes">yes</p>
+				<p>Subject <input type="text" id="subject"><input type="text" id="subject2"></p>
+				<p>Change<input type="radio" id="change_class_yes">No</p>
 				<p>Start time <input type="time" id="start_time"></p>
 				<p>End time <input type="time" id="end_time"></p>
-				<button onclick="add_ifm()">Save</button>
+				
+				<p id="photo"></p>
+				<button onclick="add_ifm()">Save</button>	
 		</div>
+		<p></p>
 		<footer>
             <small>
-                © 2024 Sunny Han.
+                © 2025 Sunny Han.
             </small>
         </footer>
    		<script>
@@ -101,20 +104,26 @@
 			let n=0;
 				
 			let subject = []; // Array to store subjects
+			let subject2 = [];
         	let start_time = []; // Array to store start times
     		let end_time = []; // Array to store end times
 
 			function add_ifm(){
 				subject[n]= document.getElementById("subject").value;
+				subject2[n]= document.getElementById("subject2").value;
 				start_time[n]= document.getElementById("start_time").value;
 				end_time[n]= document.getElementById("end_time").value;
 				change_class_yes = document.getElementById("change_class_yes").checked;
 
-				if(change_class_yes) change_class = '[換]';
+				const seat = document.getElementById("seat");
+    			seat.src = "seat.jpg";
+
+				if(change_class_yes) change_class = '[原]';
 				else change_class = '';
 					
 				// clear the input box
 				document.getElementById("subject").value= '';
+				document.getElementById("subject2").value= '';
 				document.getElementById("start_time").value= '';
 				document.getElementById("end_time").value= '';
 				
@@ -122,7 +131,12 @@
 					
 				// Update schedule
             	const scheduleElement = document.getElementById("schedule");
-        		scheduleElement.innerHTML += subject[n] + " " + start_time[n] + " ~ " + end_time[n] + " " + change_class + "<br>";
+				if(subject2[n] === ''){
+					scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>";
+				}
+        		else{
+					scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + subject2[n] + "<br>";
+				}
 				n++;
 			}
 				
@@ -151,7 +165,7 @@
                 		let left_minutes = end_time_in_minutes - now_time_in_minutes;
                     
                     	if (left_minutes === 1) {
-							count_down_display = left_minutes + " minute";
+							count_down_display = left_minutes + " min";
 						} 
 						else if (left_minutes === 0) {
 							if(subject[i+1] == '自習'){
@@ -168,7 +182,7 @@
 					   		}
 						}
 						else {
-    						count_down_display = left_minutes + " minutes";
+    						count_down_display = left_minutes + " min";
 						}
 						document.getElementById("count_down").innerHTML = count_down_display;
 					}
