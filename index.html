@@ -178,11 +178,17 @@
 						else if (left_minutes === 0) {
 							if(i != subject.length-1){
 								if(subject2[i] == ''){
-									count_down_display = "(下節" + subject[i+1] + ")";
-									document.getElementById("arrive_subject").innerHTML = "下課";
+									if(subject[i] == '自習'){
+										count_down_display = "(下節" + subject[i+1] + ")";
+										document.getElementById("arrive_subject").innerHTML = "下課";
+									}
+									else{
+										count_down_display = "(下節考" + subject[i+1] + ")";
+										document.getElementById("arrive_subject").innerHTML = "下課";
+									}
 								}
 								else{
-									count_down_display = "(下節" + subject[i+1] + "/" + subject2[i+1] + ")";
+									count_down_display = "(下節考" + subject[i+1] + "/" + subject2[i+1] + ")";
 									document.getElementById("arrive_subject").innerHTML = "下課";
 								}
 							}
