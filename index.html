@@ -84,16 +84,26 @@
 		<p id="schedule"></p>
 		<br>
 		<br>
+		<img id="photo">
+		<br>
+		<br>
 		<div class="add">
-				<p>Subject <input type="text" id="subject"><input type="text" id="subject2"></p>
-				<p>Change<input type="radio" id="change_class_yes">No</p>
-				<p>Start time <input type="time" id="start_time"></p>
-				<p>End time <input type="time" id="end_time"></p>
-				
-				<p id="photo"></p>
-				<button onclick="add_ifm()">Save</button>	
+			<p>Subject <input type="text" id="subject"><input type="text" id="subject2"></p>
+			<p>Change<input type="radio" id="change_class_yes">No</p>
+			<p>Start time <input type="time" id="start_time"></p>
+			<p>End time <input type="time" id="end_time"></p>
+		
+			<button onclick="add_ifm()">Save</button>	
 		</div>
-		<p></p>
+		<br>
+		<div class="add_seat">
+			<p>Upload Seat</p>
+			<input type="image" id="seat">
+			<br>
+			<br>
+			<button onclick="add_seat()">Save</button>
+		</div>
+
 		<footer>
             <small>
                 © 2025 Sunny Han.
@@ -114,9 +124,6 @@
 				start_time[n]= document.getElementById("start_time").value;
 				end_time[n]= document.getElementById("end_time").value;
 				change_class_yes = document.getElementById("change_class_yes").checked;
-
-				const seat = document.getElementById("seat");
-    			seat.src = "seat.jpg";
 
 				if(change_class_yes) change_class = '[原]';
 				else change_class = '';
@@ -145,6 +152,7 @@
 			let now = new Date();
 			let now_hours = now.getHours();
             let now_minutes = now.getMinutes();
+
 			function counter() {
     			let now = new Date();
     			let now_hours = now.getHours();
@@ -168,18 +176,20 @@
 							count_down_display = left_minutes + " min";
 						} 
 						else if (left_minutes === 0) {
-							if(subject[i+1] == '自習'){
-								count_down_display = "(下節" + subject[i+1] + ")";
-								document.getElementById("arrive_subject").innerHTML = "下課";
+							if(i != subject.length-1){
+								if(subject2[n] === ''){
+									count_down_display = "(下節" + subject[i+1] + ")";
+									document.getElementById("arrive_subject").innerHTML = "下課";
+								}
+								else{
+									count_down_display = "(下節" + subject[i+1] + "/" + subject2[i+1] + ")";
+									document.getElementById("arrive_subject").innerHTML = "下課";
+								}
 							}
-					   		else if(i == subject.length-1){
+					   		else{
 								document.getElementById("arrive_subject").innerHTML = "放學";
 								count_down_display = " ";
-					   		}
-					   		else{
-								count_down_display = "(下節考" + subject[i+1] + ")";
-								document.getElementById("arrive_subject").innerHTML = "下課";
-					   		}
+							}
 						}
 						else {
     						count_down_display = left_minutes + " min";
@@ -187,7 +197,13 @@
 						document.getElementById("count_down").innerHTML = count_down_display;
 					}
 				}
-        	}												
+        	}
+			
+			function add_seat(){
+				var seat = document.getElementById("seat").value;
+				document.getElemntById("photo").innerHTML = seat;
+			}
+
         	setInterval(counter,1000);
 		</script>
 	</body>
