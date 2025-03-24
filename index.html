@@ -160,7 +160,7 @@
 		}
 
 
-		//count down time
+		//count down time 
 		let now = new Date();
 		let now_hours = now.getHours();
 		let now_minutes = now.getMinutes();
@@ -184,6 +184,7 @@
 					document.getElementById("arrive_subject").innerHTML = subject[i];
 					let left_minutes = end_time_in_minutes - now_time_in_minutes;
 
+					// output
 					if (left_minutes === 1) {
 						count_down_display = left_minutes + " min";
 					}
