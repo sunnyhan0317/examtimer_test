@@ -233,7 +233,7 @@
 					let wait_minutes = next_time_in_minutes - now_time_in_minutes;
 
 					document.getElementById("arrive_subject").innerHTML = "下課";
-					document.getElementById("count_down").innerHTML = "下節 " + subject[next_index] + wait_minutes + "min";
+					document.getElementById("count_down").innerHTML = "下節 " + subject[next_index] + " " + wait_minutes + "min";
 				} else {
 					// 已經沒有下一節課了
 					document.getElementById("arrive_subject").innerHTML = "全部結束";
