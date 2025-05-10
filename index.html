@@ -11,9 +11,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&family=LXGW+WenKai+Mono+TC&display=swap"
-        rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&family=LXGW+WenKai+Mono+TC&display=swap"
+		rel="stylesheet">
 
 
 	<style>
@@ -132,7 +132,7 @@
 		<button onclick="add_ifm()">Save</button>
 	</div>
 	<br>
-	<div class="add_seat" style="margin-left: 3%;"> 
+	<div class="add_seat" style="margin-left: 3%;">
 		<p>Upload Seat</p>
 		<input type="image" id="seat">
 		<br>
@@ -178,7 +178,7 @@
 				scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>";
 			}
 			else {
-				scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + subject2[n] + "<br>";
+				scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + subject2[n] + "<br>";
 			}
 			n++;
 		}
@@ -206,9 +206,13 @@
 				const start_time_in_minutes = start_hours * 60 + start_minutes;
 				const end_time_in_minutes = end_hours * 60 + end_minutes;
 
-				if (now_time_in_minutes > start_time_in_minutes && now_time_in_minutes < end_time_in_minutes) {
+				if (now_time_in_minutes >= start_time_in_minutes && now_time_in_minutes < end_time_in_minutes) {
 					found = true;
-					document.getElementById("arrive_subject").innerHTML = subject[i];
+					if (subject2[i] == undefined) {
+						document.getElementById("arrive_subject").innerHTML = subject[i];
+					} else {
+						document.getElementById("arrive_subject").innerHTML = subject[i] + "/" + "<br>" + subject2[i];
+					}
 					let left_minutes = end_time_in_minutes - now_time_in_minutes;
 					document.getElementById("count_down").innerHTML = left_minutes + " min";
 					break;
