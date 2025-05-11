@@ -167,7 +167,7 @@
 			end_time[n] = document.getElementById("end_time").value;
 			change_class_yes = document.getElementById("change_class_yes").checked;
 
-			if (change_class_yes) change_class = '[原]';
+			if (change_class_yes) change_class = ' /原';
 			else change_class = '';
 
 			// clear the input box
@@ -214,7 +214,7 @@
 
 				if (now_time_in_minutes >= start_time_in_minutes && now_time_in_minutes < end_time_in_minutes) {
 					found = true;
-					if (subject2[i] == undefined) {
+					if (subject2[i] !== undefined) {
 						document.getElementById("arrive_subject").innerHTML = subject[i];
 					} else {
 						document.getElementById("arrive_subject").innerHTML = subject[i] + "/" + "<br>" + subject2[i];
