@@ -119,11 +119,9 @@
 		</div>
 	</div>
 	<br>
-	<!--
-	<img id="photo">
-	-->
+
 	<br>
-	
+
 	<br>
 	<br>
 	<div class="add">
@@ -135,16 +133,13 @@
 		<button onclick="add_ifm()">Save</button>
 	</div>
 	<br>
-	<!--
 	<div class="add_seat" style="margin-left: 3%;">
 		<p>Upload Seat</p>
-		<input type="image" id="seat">
-		<br>
-		<br>
-		<button onclick="add_seat()">Save</button>
+		<input type="file" id="fileInput" accept="image/*">
 	</div>
-	-->
-	
+	<br>
+
+	<img id="preview" src="" style="max-width: 1000px; max-height: 1000px;">
 
 	<footer>
 		<small>
@@ -242,8 +237,8 @@
 					let next_time_in_minutes = next_hours * 60 + next_minutes;
 					let wait_minutes = next_time_in_minutes - now_time_in_minutes;
 
-					document.getElementById("arrive_subject").innerHTML = "下課";
-					document.getElementById("count_down").innerHTML = "下節 " + subject[next_index] + " " + wait_minutes + "min";
+					document.getElementById("arrive_subject").innerHTML = "下課" + " " + wait_minutes + "min";
+					document.getElementById("count_down").innerHTML = "下節 " + subject[next_index];
 				} else {
 					// 已經沒有下一節課了
 					document.getElementById("arrive_subject").innerHTML = "全部結束";
@@ -252,14 +247,27 @@
 			}
 		}
 
-		/*
-		function add_seat() {
-			var seat = document.getElementById("seat").value;
-			document.getElemntById("photo").innerHTML = seat;
-		}
-		*/
+		const fileInput = document.getElementById('fileInput');
+		const previewImg = document.getElementById('preview');
+
+		let uploadedImageData = null;
+
+		fileInput.addEventListener('change', function () {
+			const file = this.files[0];
+			if (file) {
+				const reader = new FileReader();
+
+				reader.onload = function (e) {
+					uploadedImageData = e.target.result;
+					previewImg.src = uploadedImageData;
+				};
+
+				reader.readAsDataURL(file);
+			}
+		});
+
 		setInterval(counter, 1000);
-		
+
 	</script>
 </body>
 
