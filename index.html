@@ -107,7 +107,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="img-thumbnail" style=" background-color: #fff5ee;">
-					<p id="schedule"></p>
+					<p id="schedule" style="margin-left: 7%;"></p>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -124,151 +124,44 @@
 
 	<br>
 	<br>
-	<div class="add">
-		<p>Subject <input type="text" id="subject"><input type="text" id="subject2"></p>
-		<p>Change<input type="radio" id="change_class_yes">No</p>
-		<p>Start time <input type="time" id="start_time"></p>
-		<p>End time <input type="time" id="end_time"></p>
+	<button id="add_subject" onclick="open_input()" style="margin-left: 3%;">add subject</button>
+	<div id="add" style="display: none; margin-left: 5%;">
+		<br>
+		<p>Subject 1: <input type="text" id="subject"></p>
+
+		<p>Subject 2: <input type="text" id="subject2"><br>(若有不同組才需填) </p>
+		
+
+		<p>Change Class:  <br>
+			<input type="checkbox" id="change_class">Yes <input type="checkbox" id="change_class_no">No
+		</p>
+
+		<p>Start time: <input type="time" id="start_time"></p>
+
+		<p>End time: <input type="time" id="end_time"></p>
 
 		<button onclick="add_ifm()">Save</button>
 	</div>
+
 	<br>
+	<br>
+
 	<div class="add_seat" style="margin-left: 3%;">
-		<p>Upload Seat</p>
-		<input type="file" id="fileInput" accept="image/*">
+		<p>Upload Seat <input type="file" id="fileInput" style="height: auto;" accept="image/*"></p>
+		
 	</div>
 	<br>
 
-	<img id="preview" src="" style="max-width: 1000px; max-height: 1000px;">
+	<img id="preview" src="" style="max-width: 1000px; max-height: 1000px;"> <br><br>
 
 	<footer>
 		<small>
 			© 2025 Sunny Han.
 		</small>
 	</footer>
-	<script>
-		// show subject
-		let n = 0;
+	
+	<script src="js/run.js"></script>
 
-		let subject = []; // Array to store subjects
-		let subject2 = [];
-		let start_time = []; // Array to store start times
-		let end_time = []; // Array to store end times
-
-		function add_ifm() {
-			subject[n] = document.getElementById("subject").value;
-			subject2[n] = document.getElementById("subject2").value;
-			start_time[n] = document.getElementById("start_time").value;
-			end_time[n] = document.getElementById("end_time").value;
-			change_class_yes = document.getElementById("change_class_yes").checked;
-
-			if (change_class_yes) change_class = ' /原';
-			else change_class = '';
-
-			// clear the input box
-			document.getElementById("subject").value = '';
-			document.getElementById("subject2").value = '';
-			document.getElementById("start_time").value = '';
-			document.getElementById("end_time").value = '';
-
-			document.getElementById("change_class_yes").checked = false;
-
-			// Update schedule
-			const scheduleElement = document.getElementById("schedule");
-			if (subject2[n] === '') {
-				scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>";
-			}
-			else {
-				scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + subject2[n] + "<br>";
-			}
-			n++;
-		}
-
-
-		//count down time 
-		let now = new Date();
-		let now_hours = now.getHours();
-		let now_minutes = now.getMinutes();
-
-		function counter() {
-			let now = new Date();
-			let now_hours = now.getHours();
-			let now_minutes = now.getMinutes();
-			let now_seconds = now.getSeconds();
-
-			let now_time_in_minutes = now_hours * 60 + now_minutes;
-
-			let found = false;
-
-			for (let i = 0; i < n; i++) {
-				const [start_hours, start_minutes] = start_time[i].split(":").map(Number);
-				const [end_hours, end_minutes] = end_time[i].split(":").map(Number);
-
-				const start_time_in_minutes = start_hours * 60 + start_minutes;
-				const end_time_in_minutes = end_hours * 60 + end_minutes;
-
-				if (now_time_in_minutes >= start_time_in_minutes && now_time_in_minutes < end_time_in_minutes) {
-					found = true;
-					if (subject2[i] !== undefined) {
-						document.getElementById("arrive_subject").innerHTML = subject[i];
-					} else {
-						document.getElementById("arrive_subject").innerHTML = subject[i] + "/" + "<br>" + subject2[i];
-					}
-					let left_minutes = end_time_in_minutes - now_time_in_minutes;
-					document.getElementById("count_down").innerHTML = left_minutes + " min";
-					break;
-				}
-			}
-
-			if (!found) {
-				// 不在課堂時間內，找下一節課
-				let next_index = -1;
-				for (let i = 0; i < n; i++) {
-					const [start_hours, start_minutes] = start_time[i].split(":").map(Number);
-					const start_time_in_minutes = start_hours * 60 + start_minutes;
-					if (start_time_in_minutes > now_time_in_minutes) {
-						next_index = i;
-						break;
-					}
-				}
-
-				if (next_index !== -1) {
-					let [next_hours, next_minutes] = start_time[next_index].split(":").map(Number);
-					let next_time_in_minutes = next_hours * 60 + next_minutes;
-					let wait_minutes = next_time_in_minutes - now_time_in_minutes;
-
-					document.getElementById("arrive_subject").innerHTML = "下課" + " " + wait_minutes + "min";
-					document.getElementById("count_down").innerHTML = "下節 " + subject[next_index];
-				} else {
-					// 已經沒有下一節課了
-					document.getElementById("arrive_subject").innerHTML = "全部結束";
-					document.getElementById("count_down").innerHTML = " ";
-				}
-			}
-		}
-
-		const fileInput = document.getElementById('fileInput');
-		const previewImg = document.getElementById('preview');
-
-		let uploadedImageData = null;
-
-		fileInput.addEventListener('change', function () {
-			const file = this.files[0];
-			if (file) {
-				const reader = new FileReader();
-
-				reader.onload = function (e) {
-					uploadedImageData = e.target.result;
-					previewImg.src = uploadedImageData;
-				};
-
-				reader.readAsDataURL(file);
-			}
-		});
-
-		setInterval(counter, 1000);
-
-	</script>
 </body>
 
 </html>
