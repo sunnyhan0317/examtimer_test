@@ -36,6 +36,8 @@ document.querySelectorAll('input[type="radio"]').forEach(radio => {
     });
 });
 
+var first_input = false;
+
 function add_ifm() {
     subject[n] = document.getElementById("subject").value;
     subject2[n] = document.getElementById("subject2").value;
@@ -57,6 +59,8 @@ function add_ifm() {
         alert('請輸入結束時間');
         return;
     }
+
+    first_input = true;
 
     if (change_class_no) change_class = ' /原';
     else change_class = '';
@@ -143,8 +147,13 @@ function counter() {
             
             document.getElementById("count_down").innerHTML = "還有" + " " + wait_minutes + " min";
         } else {
-            // 已經沒有下一節課了
-            document.getElementById("arrive_subject").innerHTML = "全部結束";
+            if (first_input === true){
+                document.getElementById("arrive_subject").innerHTML = "全部結束";
+            }
+            else{
+                document.getElementById("arrive_subject").innerHTML = " ";
+            }
+            
             document.getElementById("count_down").innerHTML = " ";
         }
     }
