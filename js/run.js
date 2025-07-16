@@ -1,3 +1,17 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const fc_btn = document.getElementById('fullscreen_btn');
+    const fc_target = document.getElementById('output');
+
+    fc_btn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            fc_target.requestFullscreen();
+        }
+        else {
+            document.exitFullscreen();
+        }
+    });
+});
+
 function open_input(){
     var input_show = document.getElementById("add");
     if (input_show.style.display == "none") {

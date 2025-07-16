@@ -80,6 +80,14 @@
 			height: 2.5rem;
 			margin-top: auto;
 		}
+
+		#output:fullscreen {
+            display: block;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+			background-color: #fff5ee;
+        }
 	</style>
 	<script>
 		// current time show
@@ -101,19 +109,22 @@
 </head>
 
 <body>
-	<h1><a href="https://sunnyhan0317.github.io/2024/10/28/Exam-Timer/" style="color:black; margin-left: 3%;" class="text-decoration-none">Exam Timer</a></h1>
-	<p id="current_time"></p>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<div class="img-thumbnail" style=" background-color: #fff5ee;">
-					<p id="schedule" style="margin-left: 7%;"></p>
+	<h1><a href="https://sunnyhan0317.github.io/2024/10/28/Exam-Timer/" style="color:black; margin-left: 3%;"
+			class="text-decoration-none">Exam Timer</a></h1>
+	<div id="output">
+		<p id="current_time" style="margin-bottom: 0%;"></p>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="img-thumbnail" style=" background-color: #fff5ee;">
+						<p id="schedule" style="margin-left: 7%;"></p>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="img-thumbnail" style=" background-color: #fff5ee; text-align: center;">
-					<h2 id="arrive_subject"></h2>
-					<h2 id="count_down"></h2>
+				<div class="col-md-6">
+					<div class="img-thumbnail" style=" background-color: #fff5ee; text-align: center;">
+						<h2 id="arrive_subject"></h2>
+						<h2 id="count_down"></h2>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -121,7 +132,8 @@
 	<br>
 
 	<br>
-
+	<br>
+	<button id="fullscreen_btn" style="margin-left: 3%;">FC</button>
 	<br>
 	<br>
 	<button id="add_subject" onclick="open_input()" style="margin-left: 3%;">add subject</button>
@@ -130,9 +142,9 @@
 		<p>Subject 1: <input type="text" id="subject"></p>
 
 		<p>Subject 2: <input type="text" id="subject2"><br>(若有不同組才需填) </p>
-		
 
-		<p>Change Class:  <br>
+
+		<p>Change Class: <br>
 			<input type="checkbox" id="change_class">Yes <input type="checkbox" id="change_class_no">No
 		</p>
 
@@ -148,7 +160,7 @@
 
 	<div class="add_seat" style="margin-left: 3%;">
 		<p>Upload Seat <input type="file" id="fileInput" style="height: auto;" accept="image/*"></p>
-		
+
 	</div>
 	<br>
 
@@ -161,7 +173,7 @@
 			© 2025 Sunny Han.
 		</small>
 	</footer>
-	
+
 	<script src="js/run.js"></script>
 
 </body>
