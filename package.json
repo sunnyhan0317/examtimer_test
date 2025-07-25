@@ -1,0 +1,23 @@
+{
+  "name": "examtimer_txt",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/sunnyhan0317/examtimer#readme",
+  "bugs": {
+    "url": "https://github.com/sunnyhan0317/examtimer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sunnyhan0317/examtimer.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

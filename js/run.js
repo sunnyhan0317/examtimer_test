@@ -1,3 +1,5 @@
+const { start } = require("repl");
+
 document.addEventListener("DOMContentLoaded", function () {
     const fc_btn = document.getElementById('fullscreen_btn');
     const fc_target = document.getElementById('output');
@@ -12,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-function open_input(){
+function open_input() {
     var input_show = document.getElementById("add");
     if (input_show.style.display == "none") {
         input_show.style.display = "block";
@@ -41,16 +43,48 @@ let lastSelected = null;
 
 document.querySelectorAll('input[type="radio"]').forEach(radio => {
     radio.addEventListener('mousedown', function (e) {
-      if (this === lastSelected) {
-        this.checked = false;
-        lastSelected = null;
-      } else {
-        lastSelected = this;
-      }
+        if (this === lastSelected) {
+            this.checked = false;
+            lastSelected = null;
+        } else {
+            lastSelected = this;
+        }
     });
 });
 
 var first_input = false;
+
+$('select_grade').change(function () {
+    var grade = $('#slect_grade').val();
+    fetch('/grade_select', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            grade,
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                const sheetArray = data.data; // 每一列是一個陣列
+                console.log(sheetArray);
+
+                // 例如：
+                sheetArray.forEach(row => {
+                    const [start_time, end_time, subject, change_class_no] = row;
+                    // 這裡可以儲存到你的前端陣列中
+                });
+            }
+        });
+
+    for (let i = 0; i < start_time.length; i++) {
+        const scheduleElement = document.getElementById("schedule");
+    
+        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n];
+    }
+});
 
 function add_ifm() {
     subject[n] = document.getElementById("subject").value;
@@ -59,17 +93,17 @@ function add_ifm() {
     end_time[n] = document.getElementById("end_time").value;
     change_class_no = document.getElementById("change_class_no").checked;
 
-    if(subject[n] == ''){
+    if (subject[n] == '') {
         alert('請輸入科目');
         return;
     }
 
-    if(start_time[n] == ''){
+    if (start_time[n] == '') {
         alert('請輸入開始時間');
         return;
     }
 
-    if(end_time[n] == ''){
+    if (end_time[n] == '') {
         alert('請輸入結束時間');
         return;
     }
@@ -93,7 +127,7 @@ function add_ifm() {
         scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>";
     }
     else {
-        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + "/" + subject2[n] + "<br>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"  + "<br>";
+        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + "/" + subject2[n] + "<br>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<br>";
     }
 
     n++;
@@ -158,16 +192,16 @@ function counter() {
             } else {
                 document.getElementById("arrive_subject").innerHTML = "下節 " + subject[next_index] + "/" + subject2[next_index];
             }
-            
+
             document.getElementById("count_down").innerHTML = "還有" + " " + wait_minutes + " min";
         } else {
-            if (first_input === true){
+            if (first_input === true) {
                 document.getElementById("arrive_subject").innerHTML = "全部結束";
             }
-            else{
+            else {
                 document.getElementById("arrive_subject").innerHTML = " ";
             }
-            
+
             document.getElementById("count_down").innerHTML = " ";
         }
     }
