@@ -1,5 +1,3 @@
-const { start } = require("repl");
-
 document.addEventListener("DOMContentLoaded", function () {
     const fc_btn = document.getElementById('fullscreen_btn');
     const fc_target = document.getElementById('output');
