@@ -11,7 +11,7 @@ app.post('/grade_select', async (req, res) => {
   if (!grade) return res.status(400).json({ error: 'No grade specified' });
 
   // 這裡請改成你的 github 帳號與 repo 路徑
-  const url = `https://raw.githubusercontent.com/sunnyhan0317/examtimer_text/main/data/${grade}.csv`;
+  const url = `https://raw.githubusercontent.com/sunnyhan0317/examtimer_test/main/data/${grade}.csv`;
 
   try {
     const response = await fetch(url);
