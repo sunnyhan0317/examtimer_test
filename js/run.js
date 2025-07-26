@@ -53,7 +53,7 @@ document.querySelectorAll('input[type="radio"]').forEach(radio => {
 var first_input = false;
 
 $('select_grade').change(function () {
-    var grade = $('#slect_grade').val();
+    var grade = $('#select_grade').val();
     if(grade === '高二'){
         grade = 's2';
     }
