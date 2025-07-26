@@ -55,7 +55,7 @@ var first_input = false;
 
 $('#select_grade').change(function () {
     var grade = $('#select_grade').val();
-    fetch('/examtimer_test/grade_select', {
+    fetch(`/examtimer_test/grade_select?grade=${grade}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ $('#select_grade').change(function () {
             grade: grade,
         })
     })
-        .then(res => res.json())
+        .then(res => res.text())
         .then(data => {
             if (data.success) {
                 const sheetArray = data.data; // 每一列是一個陣列
@@ -81,7 +81,7 @@ $('#select_grade').change(function () {
     for (let i = 0; i < start_time.length; i++) {
         const scheduleElement = document.getElementById("schedule");
     
-        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>";
+        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class_no[n] + "<br>";
     }
 });
 
