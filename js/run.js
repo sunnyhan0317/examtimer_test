@@ -56,6 +56,9 @@ var first_input = false;
 
 $('select_grade').change(function () {
     var grade = $('#slect_grade').val();
+    if(grade === '高二'){
+        grade = 's2';
+    }
     fetch('/grade_select', {
         method: 'POST',
         headers: {
