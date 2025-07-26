@@ -55,7 +55,7 @@ var first_input = false;
 
 $('#select_grade').change(function () {
     var grade = $('#select_grade').val();
-    fetch('https://sunnyhan0317.github.io/examtimer_test/grade_select', {
+    fetch('/examtimer_test/grade_select', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
