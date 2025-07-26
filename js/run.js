@@ -61,7 +61,7 @@ $('#select_grade').change(function () {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            grade
+            grade: grade,
         })
     })
         .then(res => res.json())
