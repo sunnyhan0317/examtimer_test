@@ -55,13 +55,13 @@ var first_input = false;
 
 $('#select_grade').change(function () {
     var grade = $('#select_grade').val();
-    fetch('/grade_select', {
+    fetch('https://sunnyhan0317.github.io/examtimer_text/grade_select', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            grade,
+            grade
         })
     })
         .then(res => res.json())
