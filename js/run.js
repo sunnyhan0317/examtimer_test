@@ -36,6 +36,7 @@ let subject = []; // Array to store subjects
 let subject2 = [];
 let start_time = []; // Array to store start times
 let end_time = []; // Array to store end times
+let change_class_no = [];
 
 let lastSelected = null;
 
@@ -80,7 +81,7 @@ $('#select_grade').change(function () {
     for (let i = 0; i < start_time.length; i++) {
         const scheduleElement = document.getElementById("schedule");
     
-        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n];
+        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>";
     }
 });
 
