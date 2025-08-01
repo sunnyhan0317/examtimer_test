@@ -2,7 +2,10 @@ const express = require('express');
 const fetch = require('node-fetch'); // npm install node-fetch
 const csv = require('csvtojson');    // npm install csvtojson
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
+
+app.use(cors());
 
 app.use(bodyParser.json());
 
