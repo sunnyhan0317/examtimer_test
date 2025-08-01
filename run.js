@@ -92,7 +92,7 @@ $('#select_grade').change(function () {
 
             const scheduleElement = document.getElementById("schedule");
             for (let i = 0; i < start_time.length; i++) {
-                if(change_class_no[i] == ''){
+                if (change_class_no[i] == '') {
                     scheduleElement.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
                 } else {
                     scheduleElement.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} /${change_class_no[i]}<br>`;
@@ -109,6 +109,12 @@ $('#select_grade').change(function () {
 });
 
 function add_ifm() {
+    const scheduleElement = document.getElementById("schedule");
+
+    if (start_time[n] != '' || end_time[n] != '' || subject[n] != '' || change_class_no[n]  != '') {
+        scheduleElement.innerHTML = '';
+    }
+
     subject[n] = document.getElementById("subject").value;
     subject2[n] = document.getElementById("subject2").value;
     start_time[n] = document.getElementById("start_time").value;
@@ -144,7 +150,7 @@ function add_ifm() {
     document.getElementById("change_class_no").checked = false;
 
     // Update schedule
-    const scheduleElement = document.getElementById("schedule");
+    
     if (subject2[n] === '') {
         scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>";
     }
