@@ -1,3 +1,4 @@
+// full screen
 document.addEventListener("DOMContentLoaded", function () {
     const fc_btn = document.getElementById('fullscreen_btn');
     const fc_target = document.getElementById('output');
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// open input
 function open_input() {
     var input_show = document.getElementById("add");
     if (input_show.style.display == "none") {
@@ -37,6 +39,7 @@ let subject2 = [];
 let start_time = []; // Array to store start times
 let end_time = []; // Array to store end times
 let change_class_no = [];
+
 
 let lastSelected = null;
 
@@ -83,12 +86,17 @@ $('#select_grade').change(function () {
                 start_time.push(st);
                 end_time.push(et);
                 subject.push(sub);
+                subject2.push("");
                 change_class_no.push(cc);
             });
 
             const scheduleElement = document.getElementById("schedule");
             for (let i = 0; i < start_time.length; i++) {
-                scheduleElement.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
+                if(change_class_no[i] == ''){
+                    scheduleElement.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
+                } else {
+                    scheduleElement.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} /${change_class_no[i]}<br>`;
+                }
             }
         });
 
