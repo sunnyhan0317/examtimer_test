@@ -9,6 +9,8 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
+app.use(express.static('.'));
+
 app.post('/grade_select', async (req, res) => {
   const { grade } = req.body;
   if (!grade) return res.status(400).json({ error: 'No grade specified' });
