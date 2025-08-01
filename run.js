@@ -55,7 +55,16 @@ var first_input = false;
 
 $('#select_grade').change(function () {
     var grade = $('#select_grade').val();
-    fetch('https://examtimer-test.onrender.com/grade_select', {
+
+    start_time = [];
+    end_time = [];
+    subject = [];
+    subject2 = [];
+    change_class_no = [];
+    n = 0;
+    document.getElementById("schedule").innerHTML = "";
+
+    fetch('/grade_select', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
