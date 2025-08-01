@@ -55,7 +55,7 @@ var first_input = false;
 
 $('#select_grade').change(function () {
     var grade = $('#select_grade').val();
-    fetch(`/examtimer_test/grade_select?grade=${grade}`, {
+    fetch('https://examtimer_test.onrender.com/examtimer_test/grade_select?grade=' + grade, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
