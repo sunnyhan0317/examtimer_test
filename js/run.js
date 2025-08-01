@@ -64,23 +64,29 @@ $('#select_grade').change(function () {
             grade: grade,
         })
     })
-        .then(res => res.text())
+        .then(res => res.json())
         .then(data => {
-            if (data.success) {
-                const sheetArray = data.data; // 每一列是一個陣列
-                console.log(sheetArray);
+            const sheetArray = data; // 因為後端直接回傳陣列，不是包在 { success: true, data: ... }
+            console.log(sheetArray);
 
-                // 例如：
-                sheetArray.forEach(row => {
-                    const [start_time, end_time, subject, change_class_no] = row;
-                    // 這裡可以儲存到你的前端陣列中
-                });
+            sheetArray.forEach(row => {
+                const { start_time: st, end_time: et, subject: sub, change_class_no: cc } = row;
+                start_time.push(st);
+                end_time.push(et);
+                subject.push(sub);
+                change_class_no.push(cc);
+            });
+
+            const scheduleElement = document.getElementById("schedule");
+            for (let i = 0; i < start_time.length; i++) {
+                scheduleElement.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
             }
         });
 
+
     for (let i = 0; i < start_time.length; i++) {
         const scheduleElement = document.getElementById("schedule");
-    
+
         scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class_no[n] + "<br>";
     }
 });
