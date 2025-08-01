@@ -9,7 +9,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.post('/examtimer_test/grade_select', async (req, res) => {
+app.post('/grade_select', async (req, res) => {
   const { grade } = req.body;
   if (!grade) return res.status(400).json({ error: 'No grade specified' });
 
