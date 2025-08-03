@@ -56,8 +56,8 @@ document.querySelectorAll('input[type="radio"]').forEach(radio => {
 
 var first_input = false;
 
-$('#select_grade').change(function () {
-    var grade = $('#select_grade').val();
+$('#select_grade_s').change(function () {
+    var grade = $('#select_grade_s').val();
 
     start_time = [];
     end_time = [];
@@ -90,28 +90,76 @@ $('#select_grade').change(function () {
                 change_class_no.push(cc);
             });
 
-            const scheduleElement = document.getElementById("schedule");
+            const schedule = document.getElementById("schedule");
             for (let i = 0; i < start_time.length; i++) {
                 if (change_class_no[i] == '') {
-                    scheduleElement.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
+                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
                 } else {
-                    scheduleElement.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} /${change_class_no[i]}<br>`;
+                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} /${change_class_no[i]}<br>`;
                 }
             }
+
+            if (!first_input) {
+                first_input = true;
+                setInterval(counter, 1000);
+            }
         });
+});
 
+$('#select_grade_j').change(function () {
+    var grade = $('#select_grade_j').val();
 
-    for (let i = 0; i < start_time.length; i++) {
-        const scheduleElement = document.getElementById("schedule");
+    start_time = [];
+    end_time = [];
+    subject = [];
+    subject2 = [];
+    change_class_no = [];
+    n = 0;
+    document.getElementById("schedule").innerHTML = "";
 
-        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class_no[n] + "<br>";
-    }
+    fetch('/grade_select', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            grade: grade,
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            const sheetArray = data; // 因為後端直接回傳陣列，不是包在 { success: true, data: ... }
+            console.log(sheetArray);
+
+            sheetArray.forEach(row => {
+                const { start_time: st, end_time: et, subject: sub, change_class_no: cc } = row;
+                start_time.push(st);
+                end_time.push(et);
+                subject.push(sub);
+                subject2.push("");
+                change_class_no.push(cc);
+            });
+
+            const schedule = document.getElementById("schedule");
+            for (let i = 0; i < start_time.length; i++) {
+                if (change_class_no[i] == '') {
+                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
+                } else {
+                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} /${change_class_no[i]}<br>`;
+                }
+            }
+
+            if (!first_input) {
+                first_input = true;
+                setInterval(counter, 1000);
+            }
+        });
 });
 
 function add_ifm() {
     const scheduleElement = document.getElementById("schedule");
 
-    if (start_time[n] != '' || end_time[n] != '' || subject[n] != '' || change_class_no[n]  != '') {
+    if (start_time[n] != '' || end_time[n] != '' || subject[n] != '' || change_class_no[n] != '') {
         scheduleElement.innerHTML = '';
     }
 
@@ -150,7 +198,7 @@ function add_ifm() {
     document.getElementById("change_class_no").checked = false;
 
     // Update schedule
-    
+
     if (subject2[n] === '') {
         scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>";
     }
@@ -163,9 +211,9 @@ function add_ifm() {
 
 
 //count down time 
-let now = new Date();
-let now_hours = now.getHours();
-let now_minutes = now.getMinutes();
+// let now = new Date();
+// let now_hours = now.getHours();
+// let now_minutes = now.getMinutes();
 
 function counter() {
     let now = new Date();
@@ -177,7 +225,7 @@ function counter() {
 
     let found = false;
 
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < start_time.length; i++) {
         const [start_hours, start_minutes] = start_time[i].split(":").map(Number);
         const [end_hours, end_minutes] = end_time[i].split(":").map(Number);
 
@@ -204,18 +252,22 @@ function counter() {
         for (let i = 0; i < n; i++) {
             const [start_hours, start_minutes] = start_time[i].split(":").map(Number);
             const start_time_in_minutes = start_hours * 60 + start_minutes;
+            console.log(start_time_in_minutes);
+            console.log(now_time_in_minutes);
             if (start_time_in_minutes > now_time_in_minutes) {
                 next_index = i;
                 break;
             }
         }
 
+        console.log(next_index);
+
         if (next_index !== -1) {
             let [next_hours, next_minutes] = start_time[next_index].split(":").map(Number);
             let next_time_in_minutes = next_hours * 60 + next_minutes;
             let wait_minutes = next_time_in_minutes - now_time_in_minutes;
 
-            if (subject2[i] == '') {
+            if (subject2[next_index] == '') {
                 document.getElementById("arrive_subject").innerHTML = "下節 " + subject[next_index];
             } else {
                 document.getElementById("arrive_subject").innerHTML = "下節 " + subject[next_index] + "/" + subject2[next_index];
