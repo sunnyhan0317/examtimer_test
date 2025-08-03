@@ -58,6 +58,9 @@ var first_input = false;
 
 $('#select_grade_s').change(function () {
     var grade = $('#select_grade_s').val();
+    var clear;
+
+    clear = $('#select_grade_j').val('');
 
     start_time = [];
     end_time = [];
@@ -108,6 +111,9 @@ $('#select_grade_s').change(function () {
 
 $('#select_grade_j').change(function () {
     var grade = $('#select_grade_j').val();
+    var clear;
+
+    clear = $('#select_grade_s').val('');
 
     start_time = [];
     end_time = [];
