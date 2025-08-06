@@ -215,12 +215,6 @@ function add_ifm() {
     n++;
 }
 
-
-//count down time 
-// let now = new Date();
-// let now_hours = now.getHours();
-// let now_minutes = now.getMinutes();
-
 function counter() {
     let now = new Date();
     let now_hours = now.getHours();
@@ -295,6 +289,7 @@ function counter() {
 
 const fileInput = document.getElementById('fileInput');
 const previewImg = document.getElementById('preview');
+const delete_button = document.getElementById('seat_delete');
 
 let uploadedImageData = null;
 
@@ -308,8 +303,18 @@ fileInput.addEventListener('change', function () {
             previewImg.src = uploadedImageData;
         };
 
+        if (delete_button.style.display === "none") {
+            delete_button.style.display = "block";
+        } else {
+            delete_button.style.display = "none";
+        }
+
         reader.readAsDataURL(file);
     }
 });
+
+function delete_photo() {
+    previewImg.src = '';
+}
 
 setInterval(counter, 1000);

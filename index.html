@@ -84,12 +84,12 @@
 		}
 
 		#output:fullscreen {
-            display: block;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+			display: block;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
 			background-color: #fff5ee;
-        }
+		}
 	</style>
 	<script>
 		// current time show
@@ -111,15 +111,15 @@
 </head>
 
 <body>
-	<h1><a href="https://sunnyhan0317.github.io/2024/10/28/Exam-Timer/" target="_blank" style="color:black; margin-left: 3%;"
-			class="text-decoration-none">Exam Timer</a></h1>
+	<h1><a href="https://sunnyhan0317.github.io/2024/10/28/Exam-Timer/" target="_blank"
+			style="color:black; margin-left: 3%;" class="text-decoration-none">Exam Timer</a></h1>
 	<div id="output">
 		<p id="current_time" style="margin-bottom: 0%;"></p>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
-					<div class="img-thumbnail" style=" background-color: #fff5ee;">
-						<p id="schedule" style="margin-left: 7%;"></p>
+					<div class="img-thumbnail" style=" background-color: #fff5ee; margin-top: 0;">
+						<p id="schedule" style="margin-left: 6%; text-align: left; margin-top: 2%;"></p>
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -174,13 +174,13 @@
 	<br>
 	<br>
 
-	<div class="add_seat" style="margin-left: 3%;">
-		<p>Upload Seat <input type="file" id="fileInput" style="height: auto;" accept="image/*"></p>
-
+	<div class="add_seat" style="margin-left: 3%; margin-top: 2%; text-align: center;">
+		<p style="text-align: left;">Upload Seat <input type="file" id="fileInput" style="height: auto;" accept="image/*"></p> 
+		<br>
+		<button id='seat_delete' style="color: red; display: none; text-align: left;" onclick="delete_photo()">Delete</button>
+		<img id="preview" src="" style="max-width: 80%; max-height: 80%;">
 	</div>
-	<br>
 
-	<img id="preview" src="" style="max-width: 1000px; max-height: 1000px;"> <br><br>
 
 	<br>
 
