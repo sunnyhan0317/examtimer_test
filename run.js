@@ -167,11 +167,14 @@ function add_ifm() {
 
     if (start_time[n] != '' || end_time[n] != '' || subject[n] != '' || change_class_no[n] != '') {
         scheduleElement.innerHTML = '';
-        start_time = [];
-        end_time = [];
-        subject = [];
-        subject2 = [];
-        change_class_no = [];
+        
+        if (n == 0){
+            start_time = [];
+            end_time = [];
+            subject = [];
+            subject2 = [];
+            change_class_no = [];
+        }
     }
 
     subject[n] = document.getElementById("subject").value;
