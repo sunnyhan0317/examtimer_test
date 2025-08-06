@@ -357,6 +357,13 @@ fileInput.addEventListener('change', function () {
 
 function delete_photo() {
     previewImg.src = '';
+    fileInput.value = '';
+
+    if (delete_button.style.display === "none") {
+        delete_button.style.display = "block";
+    } else {
+        delete_button.style.display = "none";
+    }
 }
 
 setInterval(counter, 1000);
