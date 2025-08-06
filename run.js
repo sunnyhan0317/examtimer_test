@@ -165,16 +165,13 @@ $('#select_grade_j').change(function () {
 function add_ifm() {
     const scheduleElement = document.getElementById("schedule");
 
-    if (start_time[n] != '' || end_time[n] != '' || subject[n] != '' || change_class_no[n] != '') {
-        scheduleElement.innerHTML = '';
-        
-        if (n == 0){
+    if (n == 0){
             start_time = [];
             end_time = [];
             subject = [];
             subject2 = [];
             change_class_no = [];
-        }
+            scheduleElement.innerHTML = '';
     }
 
     subject[n] = document.getElementById("subject").value;
@@ -319,5 +316,6 @@ fileInput.addEventListener('change', function () {
         reader.readAsDataURL(file);
     }
 });
+
 
 setInterval(counter, 1000);
