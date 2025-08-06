@@ -98,7 +98,7 @@ $('#select_grade_s').change(function () {
                 if (change_class_no[i] == '') {
                     schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
                 } else {
-                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} /${change_class_no[i]}<br>`;
+                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]}(${change_class_no[i]})<br>`;
                 }
             }
 
@@ -192,7 +192,7 @@ function add_ifm() {
 
     first_input = true;
 
-    if (change_class_no) change_class = ' /原';
+    if (change_class_no) change_class = '(原)';
     else change_class = '';
 
     // clear the input box
