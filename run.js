@@ -63,9 +63,7 @@ $('#select_grade_s').change(function () {
     var grade = $('#select_grade_s').val();
     var clear;
 
-
     clear = $('#select_grade_j').val('');
-
 
     start_time = [];
     end_time = [];
@@ -74,7 +72,6 @@ $('#select_grade_s').change(function () {
     change_class_no = [];
     n = 0;
     document.getElementById("schedule").innerHTML = "";
-
 
     fetch('/grade_select', {
         method: 'POST',
@@ -87,9 +84,8 @@ $('#select_grade_s').change(function () {
     })
         .then(res => res.json())
         .then(data => {
-            const sheetArray = data; // 因為後端直接回傳陣列，不是包在 { success: true, data: ... }
+            const sheetArray = data; 
             console.log(sheetArray);
-
 
             sheetArray.forEach(row => {
                 const { start_time: st, end_time: et, subject: sub, change_class_no: cc } = row;
@@ -100,7 +96,6 @@ $('#select_grade_s').change(function () {
                 change_class_no.push(cc);
             });
 
-
             const schedule = document.getElementById("schedule");
             for (let i = 0; i < start_time.length; i++) {
                 if (change_class_no[i] == '') {
@@ -109,7 +104,6 @@ $('#select_grade_s').change(function () {
                     schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} /${change_class_no[i]}<br>`;
                 }
             }
-
 
             if (!first_input) {
                 first_input = true;
@@ -122,9 +116,7 @@ $('#select_grade_j').change(function () {
     var grade = $('#select_grade_j').val();
     var clear;
 
-
     clear = $('#select_grade_s').val('');
-
 
     start_time = [];
     end_time = [];
@@ -133,7 +125,6 @@ $('#select_grade_j').change(function () {
     change_class_no = [];
     n = 0;
     document.getElementById("schedule").innerHTML = "";
-
 
     fetch('/grade_select', {
         method: 'POST',
@@ -146,9 +137,8 @@ $('#select_grade_j').change(function () {
     })
         .then(res => res.json())
         .then(data => {
-            const sheetArray = data; // 因為後端直接回傳陣列，不是包在 { success: true, data: ... }
+            const sheetArray = data; 
             console.log(sheetArray);
-
 
             sheetArray.forEach(row => {
                 const { start_time: st, end_time: et, subject: sub, change_class_no: cc } = row;
@@ -159,7 +149,6 @@ $('#select_grade_j').change(function () {
                 change_class_no.push(cc);
             });
 
-
             const schedule = document.getElementById("schedule");
             for (let i = 0; i < start_time.length; i++) {
                 if (change_class_no[i] == '') {
@@ -168,7 +157,6 @@ $('#select_grade_j').change(function () {
                     schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} /${change_class_no[i]}<br>`;
                 }
             }
-
 
             if (!first_input) {
                 first_input = true;
@@ -180,11 +168,9 @@ $('#select_grade_j').change(function () {
 function add_ifm() {
     const scheduleElement = document.getElementById("schedule");
 
-
     if (start_time[n] != '' || end_time[n] != '' || subject[n] != '' || change_class_no[n] != '') {
         scheduleElement.innerHTML = '';
     }
-
 
     subject[n] = document.getElementById("subject").value;
     subject2[n] = document.getElementById("subject2").value;
@@ -192,52 +178,40 @@ function add_ifm() {
     end_time[n] = document.getElementById("end_time").value;
     change_class_no = document.getElementById("change_class_no").checked;
 
-
     if (subject[n] == '') {
         alert('請輸入科目');
         return;
     }
-
 
     if (start_time[n] == '') {
         alert('請輸入開始時間');
         return;
     }
 
-
     if (end_time[n] == '') {
         alert('請輸入結束時間');
         return;
     }
 
-
     first_input = true;
-
 
     if (change_class_no) change_class = ' /原';
     else change_class = '';
-
 
     // clear the input box
     document.getElementById("subject").value = '';
     document.getElementById("subject2").value = '';
     document.getElementById("start_time").value = '';
     document.getElementById("end_time").value = '';
-
-
     document.getElementById("change_class_no").checked = false;
 
-
     // Update schedule
-
-
     if (subject2[n] === '') {
         scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>";
     }
     else {
         scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + "/" + subject2[n] + "<br>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<br>";
     }
-
 
     n++;
 }
@@ -283,7 +257,7 @@ function counter() {
     if (!found) {
         // 不在課堂時間內，找下一節課
         let next_index = -1;
-        for (let i = 0; i < n; i++) {
+        for (let i = 0; i < start_time.length; i++) {
             const [start_hours, start_minutes] = start_time[i].split(":").map(Number);
             const start_time_in_minutes = start_hours * 60 + start_minutes;
             console.log(start_time_in_minutes);
@@ -294,22 +268,18 @@ function counter() {
             }
         }
 
-
         console.log(next_index);
-
 
         if (next_index !== -1) {
             let [next_hours, next_minutes] = start_time[next_index].split(":").map(Number);
             let next_time_in_minutes = next_hours * 60 + next_minutes;
             let wait_minutes = next_time_in_minutes - now_time_in_minutes;
 
-
             if (subject2[next_index] == '') {
                 document.getElementById("arrive_subject").innerHTML = "下節 " + subject[next_index];
             } else {
                 document.getElementById("arrive_subject").innerHTML = "下節 " + subject[next_index] + "/" + subject2[next_index];
             }
-
 
             document.getElementById("count_down").innerHTML = "還有" + " " + wait_minutes + " min";
         } else {
@@ -319,7 +289,6 @@ function counter() {
             else {
                 document.getElementById("arrive_subject").innerHTML = " ";
             }
-
 
             document.getElementById("count_down").innerHTML = " ";
         }
