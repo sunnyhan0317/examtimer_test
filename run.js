@@ -168,7 +168,7 @@ $('#select_grade_j').change(function () {
 function add_ifm() {
     const scheduleElement = document.getElementById("schedule");
 
-    if (start_time[n] != '' || end_time[n] != '' || subject[n] != '' || change_class_no[n] != '') {
+    if (!first_input) {
         scheduleElement.innerHTML = '';
     }
 
