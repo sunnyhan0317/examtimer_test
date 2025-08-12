@@ -58,6 +58,7 @@ document.querySelectorAll('input[type="radio"]').forEach(radio => {
 });
 
 var first_input = false;
+var select_input = false;
 
 $('#select_grade_s').change(function () {
     var grade = $('#select_grade_s').val();
@@ -104,6 +105,8 @@ $('#select_grade_s').change(function () {
                     schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} /${change_class_no[i]}<br>`;
                 }
             }
+            
+            select_input = true;
 
             if (!first_input) {
                 first_input = true;
@@ -157,6 +160,8 @@ $('#select_grade_j').change(function () {
                     schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} /${change_class_no[i]}<br>`;
                 }
             }
+            
+            select_input = true;
 
             if (!first_input) {
                 first_input = true;
@@ -168,8 +173,9 @@ $('#select_grade_j').change(function () {
 function add_ifm() {
     const scheduleElement = document.getElementById("schedule");
 
-    if (!first_input) {
+    if (select_input) {
         scheduleElement.innerHTML = '';
+        select_input = false;
     }
 
     subject[n] = document.getElementById("subject").value;
@@ -222,12 +228,9 @@ function counter() {
     let now_minutes = now.getMinutes();
     let now_seconds = now.getSeconds();
 
-
     let now_time_in_minutes = now_hours * 60 + now_minutes;
 
-
     let found = false;
-
 
     for (let i = 0; i < start_time.length; i++) {
         const [start_hours, start_minutes] = start_time[i].split(":").map(Number);
