@@ -102,7 +102,7 @@ $('#select_grade_s').change(function () {
                 if (change_class_no[i] == '') {
                     schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
                 } else {
-                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} (${change_class_no[i])}<br>`;
+                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} (${change_class_no[i]})<br>`;
                 }
             }
             
@@ -157,7 +157,7 @@ $('#select_grade_j').change(function () {
                 if (change_class_no[i] == '') {
                     schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
                 } else {
-                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]}(${change_class_no[i])}<br>`;
+                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]}(${change_class_no[i]})<br>`;
                 }
             }
             
