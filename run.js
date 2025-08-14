@@ -102,7 +102,7 @@ $('#select_grade_s').change(function () {
                 if (change_class_no[i] == '') {
                     schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
                 } else {
-                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} (${change_class_no[i]})<br>`;
+                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]}(${change_class_no[i]})<br>`;
                 }
             }
             
@@ -213,7 +213,7 @@ function add_ifm() {
 
     // Update schedule
     if (subject2[n] === '') {
-        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>";
+        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + change_class + "<br>";
     }
     else {
         scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + "/" + subject2[n] + "<br>";
