@@ -216,7 +216,7 @@ function add_ifm() {
         scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + " " + change_class + "<br>";
     }
     else {
-        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + "/" + subject2[n] + "<br>" + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<br>";
+        scheduleElement.innerHTML += start_time[n] + " ~ " + end_time[n] + " " + subject[n] + "/" + subject2[n] + "<br>";
     }
 
     n++;
