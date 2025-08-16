@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
 // open input
 function open_input() {
     var input_show = document.getElementById("add");
@@ -33,7 +32,6 @@ function open_input() {
         open_button.innerText = "add subject";
     }
 }
-
 
 // show subject
 let n = 0;
@@ -236,10 +234,8 @@ function counter() {
         const [start_hours, start_minutes] = start_time[i].split(":").map(Number);
         const [end_hours, end_minutes] = end_time[i].split(":").map(Number);
 
-
         const start_time_in_minutes = start_hours * 60 + start_minutes;
         const end_time_in_minutes = end_hours * 60 + end_minutes;
-
 
         if (now_time_in_minutes >= start_time_in_minutes && now_time_in_minutes < end_time_in_minutes) {
             found = true;
@@ -249,13 +245,11 @@ function counter() {
                 document.getElementById("arrive_subject").innerHTML = subject[i] + "/" + subject2[i];
             }
 
-
             let left_minutes = end_time_in_minutes - now_time_in_minutes;
             document.getElementById("count_down").innerHTML = left_minutes + " min";
             break;
         }
     }
-
 
     if (!found) {
         // not in class, find next subject
@@ -309,19 +303,16 @@ fileInput.addEventListener('change', function () {
     if (file) {
         const reader = new FileReader();
 
-
         reader.onload = function (e) {
             uploadedImageData = e.target.result;
             previewImg.src = uploadedImageData;
         };
-
 
         if (delete_button.style.display === "none") {
             delete_button.style.display = "block";
         } else {
             delete_button.style.display = "none";
         }
-
 
         reader.readAsDataURL(file);
     }
