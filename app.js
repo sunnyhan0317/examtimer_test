@@ -36,3 +36,4 @@ app.post('/grade_select', async (req, res) => {
 app.use(express.static('.')); // let index.html can open
 
 const PORT = 3000;
+app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));

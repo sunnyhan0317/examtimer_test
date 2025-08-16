@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const fc_btn = document.getElementById('fullscreen_btn');
     const fc_target = document.getElementById('output');
 
-
     fc_btn.addEventListener('click', () => {
         if (!document.fullscreenElement) {
             fc_target.requestFullscreen();
@@ -22,7 +21,6 @@ function open_input() {
     } else {
         input_show.style.display = "none";
     }
-
 
     let open_button = document.getElementById("add_subject");
     if (open_button.innerText == "add subject") {
@@ -44,80 +42,14 @@ let change_class_no = [];
 
 let lastSelected = null;
 
-document.querySelectorAll('input[type="radio"]').forEach(radio => {
-    radio.addEventListener('mousedown', function (e) {
-        if (this === lastSelected) {
-            this.checked = false;
-            lastSelected = null;
-        } else {
-            lastSelected = this;
-        }
-    });
-});
-
 var first_input = false;
 var select_input = false;
-
-$('#select_grade_s').change(function () {
-    var grade = $('#select_grade_s').val();
-    var clear;
-
-    clear = $('#select_grade_j').val('');
-
-    start_time = [];
-    end_time = [];
-    subject = [];
-    subject2 = [];
-    change_class_no = [];
-    n = 0;
-    document.getElementById("schedule").innerHTML = "";
-
-    fetch('/grade_select', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            grade: grade,
-        })
-    })
-        .then(res => res.json())
-        .then(data => {
-            const sheetArray = data; 
-            console.log(sheetArray);
-
-            sheetArray.forEach(row => {
-                const { start_time: st, end_time: et, subject: sub, change_class_no: cc } = row;
-                start_time.push(st);
-                end_time.push(et);
-                subject.push(sub);
-                subject2.push("");
-                change_class_no.push(cc);
-            });
-
-            const schedule = document.getElementById("schedule");
-            for (let i = 0; i < start_time.length; i++) {
-                if (change_class_no[i] == '') {
-                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
-                } else {
-                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]}(${change_class_no[i]})<br>`;
-                }
-            }
-            
-            select_input = true;
-
-            if (!first_input) {
-                first_input = true;
-                setInterval(counter, 1000);
-            }
-        });
-});
 
 $('#select_grade_j').change(function () {
     var grade = $('#select_grade_j').val();
     var clear;
 
-    clear = $('#select_grade_s').val('');
+    clear = $('#select_grade_s').val('none_s');
 
     start_time = [];
     end_time = [];
@@ -126,6 +58,11 @@ $('#select_grade_j').change(function () {
     change_class_no = [];
     n = 0;
     document.getElementById("schedule").innerHTML = "";
+
+    if(grade === 'none_j'){
+        first_input = false;
+        return;
+    }
 
     fetch('/grade_select', {
         method: 'POST',
@@ -167,6 +104,80 @@ $('#select_grade_j').change(function () {
             }
         });
 });
+
+$('#select_grade_s').change(function () {
+    var grade = $('#select_grade_s').val();
+    var clear;
+
+    clear = $('#select_grade_j').val('none_j');
+
+    start_time = [];
+    end_time = [];
+    subject = [];
+    subject2 = [];
+    change_class_no = [];
+    n = 0;
+    document.getElementById("schedule").innerHTML = "";
+
+    if(grade === 'none_s'){
+        first_input = false;
+        return;
+    }
+
+    fetch('/grade_select', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            grade: grade,
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            const sheetArray = data; 
+            console.log(sheetArray);
+
+            sheetArray.forEach(row => {
+                const { start_time: st, end_time: et, subject: sub, change_class_no: cc } = row;
+                start_time.push(st);
+                end_time.push(et);
+                subject.push(sub);
+                subject2.push("");
+                change_class_no.push(cc);
+            });
+
+            const schedule = document.getElementById("schedule");
+            for (let i = 0; i < start_time.length; i++) {
+                if (change_class_no[i] == '') {
+                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]} ${change_class_no[i]}<br>`;
+                } else {
+                    schedule.innerHTML += `${start_time[i]} ~ ${end_time[i]} ${subject[i]}(${change_class_no[i]})<br>`;
+                }
+            }
+            
+            select_input = true;
+
+            if (!first_input) {
+                first_input = true;
+                setInterval(counter, 1000);
+            }
+        });
+});
+
+$('.change_class').change(function () {
+    const yes = document.getElementById("change_class_yes");
+    const no = document.getElementById("change_class_no");
+
+    if (this.id === "change_class_yes" && yes.checked) {
+        no.checked = false;
+    }
+
+    if (this.id === "change_class_no" && no.checked) {
+        yes.checked = false;
+    }
+});
+
 
 function add_ifm() {
     const scheduleElement = document.getElementById("schedule");
