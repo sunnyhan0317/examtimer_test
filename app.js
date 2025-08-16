@@ -19,13 +19,12 @@ app.post('/grade_select', async (req, res) => {
     const response = await fetch(url);
     if (!response.ok) throw new Error('file not found');
     const text = await response.text();
-    // 假設 CSV 欄位順序: 起始時間,結束時間,科目,是否換班
     const rows = await csv({
       noheader: false,
       headers: ['start_time', 'end_time', 'subject', 'change_class_no']
     }).fromString(text);
 
-    // 如果首行是標題，你可能想要過濾掉
+    // filter first line
     const filteredRows = rows.filter(row => row.start_time !== '起始時間');
 
     res.json(filteredRows);
@@ -34,7 +33,6 @@ app.post('/grade_select', async (req, res) => {
   }
 });
 
-app.use(express.static('.')); // 讓 index.html 可直接打開
+app.use(express.static('.')); // let index.html can open
 
 const PORT = 3000;
-app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));

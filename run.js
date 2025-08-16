@@ -38,10 +38,10 @@ function open_input() {
 // show subject
 let n = 0;
 
-let subject = []; // Array to store subjects
+let subject = []; 
 let subject2 = [];
-let start_time = []; // Array to store start times
-let end_time = []; // Array to store end times
+let start_time = []; 
+let end_time = []; 
 let change_class_no = [];
 
 let lastSelected = null;
@@ -258,7 +258,7 @@ function counter() {
 
 
     if (!found) {
-        // 不在課堂時間內，找下一節課
+        // not in class, find next subject
         let next_index = -1;
         for (let i = 0; i < start_time.length; i++) {
             const [start_hours, start_minutes] = start_time[i].split(":").map(Number);
