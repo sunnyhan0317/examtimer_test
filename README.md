@@ -3,6 +3,10 @@
 考試計時器，可顯示當天考試科目與倒數時間。  
 課表資料透過 Google Sheets 管理，編輯後自動同步至 GitHub。
 
+<https://examtimer.onrender.com/>
+
+![examtimer主畫面](/img/homepage.png)
+
 ---
 
 ## 功能
@@ -109,23 +113,33 @@ npm start
 3. （選填）在「班級 2」選擇第二個班級，兩班科目會合併顯示
 4. 課表自動載入並開始倒數
 
+![](/img/select_class.png)
+
 ### 手動輸入科目
 
 1. 點擊「add subject」按鈕（會自動清除已載入的資料並重置班級選單）
 2. 填入科目、時間，若需標示回原班請勾選「Yes」
 3. 點擊「Save」新增
 
+![](/img/input_subject.png)
+
 ### 編輯／刪除科目
 
 點擊畫面上已顯示的科目，即可開啟編輯視窗進行修改或刪除。
+
+![](/img/edit_ifm.png)
 
 ### 座位表
 
 在「Upload Seat」上傳圖片，可在頁面右側顯示座位表。點擊「Delete」可刪除。
 
+![](/img/upload_seat.png)
+
 ### 全螢幕
 
 點擊「FS」按鈕切換全螢幕模式。
+
+![](/img/fs.png)
 
 ---
 
